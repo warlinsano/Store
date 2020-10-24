@@ -13,25 +13,7 @@ using Store.Web.Data;
 
 namespace Store.Web
 {
-    //public class Program
-    //{
-    //    public static void Main(string[] args)
-    //    {
-    //        CreateHostBuilder(args).Build().Run();
-    //    }
 
-    //    public static IHostBuilder CreateHostBuilder(string[] args) =>
-    //        Host.CreateDefaultBuilder(args)
-    //            .ConfigureWebHostDefaults(webBuilder =>
-    //            {
-    //                webBuilder.UseStartup<Startup>();
-    //            });
-    //}
-
-    //--DOCURMTACTION--
-    //https://docs.microsoft.com/en-us/aspnet/core/security/authorization/secure-data?view=aspnetcore-3.1
-    //https://docs.microsoft.com/es-es/aspnet/core/tutorials/razor-pages/sql?view=aspnetcore-3.1&tabs=visual-studio
-   
     public class Program
     {
         public static void Main(string[] args)

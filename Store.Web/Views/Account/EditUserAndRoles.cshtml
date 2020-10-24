@@ -1,0 +1,116 @@
+﻿@model Store.Web.Data.Entities.User
+
+@{
+    Layout = null;
+    ViewData["Title"] = "EditUserAndRoles";
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" disabled />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" disabled />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document" class="control-label"></label>
+                <input asp-for="Document" class="form-control" disabled />
+                <span asp-validation-for="Document" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" disabled />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" disabled />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" disabled />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email Confirmed</label>
+                @if (Model.EmailConfirmed)
+                {
+                    <input value="Confirmado" class="form-control" disabled />
+                }
+                else
+                {
+                    <input value="Aun No Confirmado" class="form-control" disabled />
+                }
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Estado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="">
+                    @Html.DropDownList("Estado", null, htmlAttributes: new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label ">Roles</label>
+                <div class="col-md-10 checkbox icheck" style="background-color:white; ">
+                    @for (int e = 0; e < (Model.todosRoles.Length) / 2; e++)
+                    {
+                        if (Model.todosRoles[e, 1] == "true")
+                        {
+                            <label><input type="checkbox" name="role" value="@Model.todosRoles[e, 0]" checked> @Model.todosRoles[e, 0].Replace("_", " ")</label><br>
+                        }
+                        else
+                        {
+                            <label><input type="checkbox" name="role" value="@Model.todosRoles[e, 0]"> @Model.todosRoles[e, 0].Replace("_", " ")</label><br>
+                        }
+                    }
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger ">
+                    Save
+                    <span aria-hidden="true" class="fa fa-pencil-alt fa-fw"></span>
+                </button>
+
+                <a asp-action="Index" class="btn btn-primary">
+                    Back to List
+                    <span aria-hidden="true" class="fa fa-share"></span>
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        @if (!String.IsNullOrEmpty(Model.PhotoPath))
+        {
+            <img src="@Url.Content(Model.PhotoPath)" width="300" height="300" class="img-circle" alt="User Image">
+        }
+        else if (!String.IsNullOrEmpty(Model.PhotoBase64))
+        {
+            <img src="@Model.PhotoBase64" class="img-circle" width="300" height="300" alt="User Image">
+        }
+        else
+        {
+            <img src="~/img/no-profile.png" class="img-circle" width="300" height="300" alt="User Image">
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

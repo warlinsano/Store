@@ -1,0 +1,194 @@
+﻿@model IEnumerable<Store.Web.Data.Entities.User>
+
+@{
+    ViewData["Title"] = "ActivityLog";
+}
+
+
+@section ContentHeader {
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            User
+            <small>Show a list of all Employees</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Empleyees</a></li>
+            <li class="active">Data tables</li>
+        </ol>
+    </section>
+}
+
+<p>
+    <a onclick="create()" class="btnEditar btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <span aria-hidden="true" class="fa fa-plus"></span> Create New Employe
+    </a>
+</p>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header bg-blue">
+                <h3 class="box-title">List of Employees</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="" class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Photo
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                FullName
+                            </th>
+                            <th>
+                                Document
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!String.IsNullOrEmpty(item.PhotoPath))
+                                    {
+                                        <img src="@Url.Content(item.PhotoPath)" class="img-circle" alt="User Image" height="50" width="50" />
+                                    }
+                                    else if (!String.IsNullOrEmpty(item.PhotoBase64))
+                                    {
+                                        <img src="@item.PhotoBase64" class="img-circle" alt="User Image" height="50" width="50" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/img/no-profile.png" class="img-circle" alt="User Image" height="50" width="50" />
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Document)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td class="tdCambiarEstado">
+                                    @if (item.Estado)
+                                    {
+                                        <input type="checkbox" name="Estado" data-status="@((item.Estado) ? false : true)" data-id="@item.Id" class="CambiarEstado" checked />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="Estado" data-status="@((item.Estado) ? false : true)" value="" data-id="@item.Id" class="CambiarEstado" />
+                                    }
+                                </td>
+                                <td>
+                                    <a onclick="Edit('@item.Id')" class="btn btn-warning">
+                                        <span aria-hidden="true" class="fa  fa-edit"></span>
+                                    </a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
+                                        <span aria-hidden="true" class="fa  fa-1x fa-list"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Photo
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                FullName
+                            </th>
+                            <th>
+                                Document
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+<!-- modal -->
+<div class="card">
+    <div class="card-body">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-default modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ModalTitle">Agregar categoría</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    $(document).ready(function () {
+            $('.table').DataTable();
+    });
+
+        function Edit(id) {
+            $('#exampleModal').modal();
+            document.getElementById("ModalTitle").innerHTML = "Editar Usuario";
+            $(".modal-body").empty();
+            $(".modal-body").load("/Account/EditUserAndRoles/" + id);
+        };
+    </script>
+    <script src="~/js/Users/CambiarEstado.js"></script>
+}
+

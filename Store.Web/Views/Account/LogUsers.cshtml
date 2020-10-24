@@ -1,0 +1,145 @@
+﻿@*@model IEnumerable<App_Business.Models.ActivityLog>*@
+@{
+    ViewData["Title"] = "ActivityLog";
+}
+
+@section ContentHeader {
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Employees
+            <small>Show a list of all Employees</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Empleyees</a></li>
+            <li class="active">Data tables</li>
+        </ol>
+    </section>
+}
+
+<p>
+    <a onclick="create()" class="btnEditar btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <span aria-hidden="true" class="fa fa-plus"></span> Create New Employe
+    </a>
+</p>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header bg-blue">
+                <h3 class="box-title">List of Employees</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="" class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Photo
+                            </th>
+                            <th>
+                                User EMail
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Controller
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Ip Address
+                            </th>
+                            <th>
+                                Mac Address
+                            </th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Photo
+                            </th>
+                            <th>
+                                User EMail
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Controller
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Ip Address
+                            </th>
+                            <th>
+                                Mac Address
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+<!-- modal -->
+<div class="card">
+    <div class="card-body">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-default modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ModalTitle">Agregar categoría</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/ActivityLog.js"></script>
+}
+
+

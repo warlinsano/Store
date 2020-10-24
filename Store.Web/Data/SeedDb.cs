@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Store.Common.Entities;
+using Store.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

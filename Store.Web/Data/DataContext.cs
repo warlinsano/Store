@@ -1,12 +1,14 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Store.Common.Entities;
+using Store.Web.Data.Entities;
 using Store.Web.Models;
 
 namespace Store.Web.Data
 {
-    public partial class DataContext : DbContext
+    public partial class DataContext : IdentityDbContext<User>
     {
         public DataContext()
         {
@@ -18,6 +20,7 @@ namespace Store.Web.Data
         }
 
         //TABLE IN DB
+        public virtual DbSet<ActivityLog> ActivityLog { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Products> Products { get; set; }
@@ -62,6 +65,9 @@ namespace Store.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating( modelBuilder);
+
             modelBuilder.Entity<AlphabeticalListOfProducts>(entity =>
             {
                 entity.HasNoKey();
