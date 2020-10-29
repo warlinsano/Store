@@ -1,0 +1,303 @@
+﻿@model IEnumerable<Store.Web.Data.Entities.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section ContentHeader {
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Orders
+            <small>Show a list of all Orders</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Orders</a></li>
+            <li class="active">Data tables</li>
+        </ol>
+    </section>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        <span aria-hidden="true" class="fa fa-plus"></span> Create New Order
+    </a>
+
+    <a class="btn btn-success text-right" id="ChangeView">
+        Change type View <span aria-hidden="true" class="fa fa-list"></span>
+    </a>
+</p>
+
+
+<div class="row" id="type_info_list" hidden>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header bg-blue">
+                <h3 class="box-title">List of Ordes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="" class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Cliente
+                            </th>
+                            <th style="width:140px">
+                                Total
+                            </th>
+                            <th style="width:140px">
+                                Creado
+                            </th>
+                            <th style="width:140px">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                                    @*@Html.ActionLink(m.Cliente, "detalle", new { id = m.id })*@
+                                </td>
+                                <td class="text-right">@string.Format("{0:c}", 100.0)</td>
+                                <td class="text-right">@item.OrderDate?.ToString("dd-MM-yyyy")</td>
+                                <td class="text-right">
+                                    <a id="Editar" onclick="edite(@item.OrderId)" class="btnEditar btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-toggle="modal">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a id="Detalles" onclick="Details(@item.OrderId)" class="Editar btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-toggle="modal">
+                                        <i class="fa fa-list-alt"></i>
+                                    </a>
+                                    <a id="Eliminar" onclick="delet(@item.OrderId)" class="Editar btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-toggle="modal">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Cliente
+                            </th>
+                            <th style="width:140px">
+                                Total
+                            </th>
+                            <th style="width:140px">
+                                Creado
+                            </th>
+                            <th style="width:140px">
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+
+<div class="row" id="type_info_Collapsable">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header bg-blue">
+                <h3 class="box-title">List of Ordes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="" class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ordenes
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{var m = Model.ToArray(); }
+                        @for (var i = 0; i < Model.Count(); i++)
+                        {
+
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <!-- /.col -->
+                                        <div class="col-md-4">
+                                            <div class="box box-primary box-solid" onclick="Details(@m[i].OrderId)">
+                                                <div class="box-header with-border">
+                                                    <h5 class="box-title">Orden #@m[i].OrderId</h5>
+
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <!-- /.box-tools -->
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body" style="">
+                                                    <b>Nombre Del Vendedor:</b> @m[i].Customer.ContactName <br />
+                                                    <b>No. Vendedor:</b> @m[i].Customer.CustomerId<br />
+                                                    <b>No. De Estacion:</b> CJ-0201<br />
+                                                    <b> Status:</b> <span class="label label-success">Approved</span>
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                            <!-- /.box -->
+                                        </div>
+                                        <!-- /.col -->
+                                        @if (i + 1 < Model.Count())
+                                        {
+                                            i++;
+                                            <!-- /.col -->
+                                            <div class="col-md-4">
+                                                <div class="box box-success box-solid" onclick="Details(@m[i].OrderId)">
+                                                    <div class="box-header with-border">
+                                                        <h5 class="box-title">Orden #@m[i].OrderId</h5>
+
+                                                        <div class="box-tools pull-right">
+                                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                                <i class="fa fa-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                        <!-- /.box-tools -->
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        <b>Nombre Del Vendedor:</b> @m[i].Customer.ContactName <br />
+                                                        <b>No. Vendedor:</b> @m[i].Customer.CustomerId<br />
+                                                        <b>No. De Estacion:</b> CJ-0201<br />
+                                                        <b> Status:</b> <span class="label label-warning">Pending</span>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <!-- /.col -->
+                                        }
+                                        @if (i + 1 < Model.Count())
+                                        {
+                                            i++;
+                                            <!-- /.col -->
+                                            <div class="col-md-4">
+                                                <div class="box box-danger  box-solid" onclick="Details(@m[i].OrderId)">
+                                                    <div class="box-header with-border">
+                                                        <h5 class="box-title">Orden #@m[i].OrderId</h5>
+
+                                                        <div class="box-tools pull-right">
+                                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                                <i class="fa fa-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                        <!-- /.box-tools -->
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        <b>Nombre Del Vendedor:</b> @m[i].Customer.ContactName <br />
+                                                        <b>No. Vendedor:</b> @m[i].Customer.CustomerId<br />
+                                                        <b>No. De Estacion:</b> CJ-0201<br />
+                                                        <b> Status:</b> <span class="label label-danger">Denied</span>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <!-- /.col -->
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Ordenes
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+
+
+<!-- modal -->
+<div class="card">
+    <div class="card-body">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-default modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ModalTitle">Agregar categoría</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    @*<script src="~/js/Employees/employees.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+
+        function Details(id) {
+            $('#exampleModal').modal();
+            document.getElementById("ModalTitle").innerHTML = "Factura #" + id;
+            $(".modal-body").empty();
+            $(".modal-body").load("/Orders/Details/" + id);
+        };
+
+
+        function Imprimir() {
+            $("body").css("overflow", "hidden");
+            $(".main-footer").hide();
+            $(".btn").hide();
+            window.print();
+            $(".btn").show();
+            $(".main-footer").show();
+            $("body").css("overflow", "auto");
+        };
+        //$("#type_info_Collapsable").show();
+        //$("#type_info_list").hide();
+
+        $("#ChangeView").on("click", function () {
+            if ($("#type_info_list").is(":visible")) {
+                $("#type_info_Collapsable").show();
+                $("#type_info_list").hide();
+            } else {
+                $("#type_info_Collapsable").hide();
+                $("#type_info_list").show();
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+

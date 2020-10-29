@@ -1,0 +1,319 @@
+﻿@*@model App_Business.Models.Orders*@
+
+@*@{
+        ViewData["Title"] = "Create";
+    }*@
+
+@*<h2>Create</h2>
+
+    <h4>Orders</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeeId" class="control-label"></label>
+                    <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderDate" class="control-label"></label>
+                    <input asp-for="OrderDate" class="form-control" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RequiredDate" class="control-label"></label>
+                    <input asp-for="RequiredDate" class="form-control" />
+                    <span asp-validation-for="RequiredDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShippedDate" class="control-label"></label>
+                    <input asp-for="ShippedDate" class="form-control" />
+                    <span asp-validation-for="ShippedDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipVia" class="control-label"></label>
+                    <select asp-for="ShipVia" class ="form-control" asp-items="ViewBag.ShipVia"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipName" class="control-label"></label>
+                    <input asp-for="ShipName" class="form-control" />
+                    <span asp-validation-for="ShipName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipAddress" class="control-label"></label>
+                    <input asp-for="ShipAddress" class="form-control" />
+                    <span asp-validation-for="ShipAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipCity" class="control-label"></label>
+                    <input asp-for="ShipCity" class="form-control" />
+                    <span asp-validation-for="ShipCity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipRegion" class="control-label"></label>
+                    <input asp-for="ShipRegion" class="form-control" />
+                    <span asp-validation-for="ShipRegion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipPostalCode" class="control-label"></label>
+                    <input asp-for="ShipPostalCode" class="form-control" />
+                    <span asp-validation-for="ShipPostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShipCountry" class="control-label"></label>
+                    <input asp-for="ShipCountry" class="form-control" />
+                    <span asp-validation-for="ShipCountry" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+
+
+@model Store.Web.Models.OrdersViewModels
+@{
+    ViewData["Title"] = "Registrar";
+}
+
+<h2 class="page-header">Nuevo comprobante</h2>
+
+<div class="box">
+    <div class="box-body">
+        <section class="content">
+            <form asp-action="Create" id="frm-comprobante">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Cliente" class="control-label"></label>
+                            <select class="form-control select2" style="width: 100%;" asp-items="ViewBag.CustomerId">
+                                <option value="" selected="selected">[--Seleccione un cliente--]</option>
+                                <option value="403Deleteme">WARLIN SANO - 40225883368</option>
+                            </select>
+                            <span asp-validation-for="Cliente" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input asp-for="Clienteid" hidden />
+                            <label asp-for="Cliente" class="control-label"></label>
+                            <input asp-for="Cliente" class="form-control" placeholder="Ingrese el nombre del cliente" />
+                            <span asp-validation-for="Cliente" class="label label-danger"></span>
+                        </div>
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <input asp-for="CabeceraProductoId" hidden />
+                                    <input asp-for="CabeceraProductoNombre" class="form-control" placeholder="Buscar producto" id="Producto" />
+                                    <span asp-validation-for="CabeceraProductoNombre" class="label label-danger"></span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input asp-for="CabeceraProductoCantidad" class="form-control" placeholder="Cantidad" />
+                                    <span asp-validation-for="CabeceraProductoCantidad" class="label label-danger"></span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">S/.</span>
+                                        <input asp-for="CabeceraProductoPrecio" class="form-control" placeholder="Precio" />
+                                        <!--span asp-validation-for="CabeceraProductoPrecio" class="label label-danger"></span-->
+                                    </div>
+                                </div>
+                                <div class="col-xs-1">
+                                    <button class="btn btn-primary" type="submit" value="agregar_producto" name="action">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+                        <ul id="facturador-detalle" class="list-group">
+                            @if (Model.ComprobanteDetalle.Count > 0)
+                            {
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-5">
+                                            <b>Producto</b>
+                                        </div>
+                                        <div class="col-xs-2 text-center">
+                                            <b>Cantidad</b>
+                                        </div>
+                                        <div class="col-xs-2 text-right">
+                                            <b>Precio Unitario</b>
+                                        </div>
+                                        <div class="col-xs-2 text-right">
+                                            <b>Monto</b>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            @foreach (var d in Model.ComprobanteDetalle)
+                            {
+                                var i = Model.ComprobanteDetalle.IndexOf(d);
+                                <li class="list-group-item Productos_orden">
+                                    <!-- Modelo -->
+                                    @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoId", d.ProductoId)
+                                    @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoNombre", d.ProductoNombre)
+                                    @Html.Hidden("ComprobanteDetalle[" + i + "].PrecioUnitario", d.PrecioUnitario)
+                                    @Html.Hidden("ComprobanteDetalle[" + i + "].Cantidad", d.Cantidad)
+                                    @Html.Hidden("ComprobanteDetalle[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
+
+                                    <div class="row">
+                                        <div class="col-xs-1 text-right">
+                                            <button class="btn btn-danger btn-xs btn-block btn-retirar" type="submit" value="retirar_producto" name="action">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            @d.ProductoNombre
+                                        </div>
+                                        <div class="col-xs-2 text-center">
+                                            @d.Cantidad
+                                        </div>
+                                        <div class="col-xs-2 text-right">
+                                            @string.Format("{0:c}", d.PrecioUnitario)
+                                        </div>
+                                        <div class="col-xs-2 text-right">
+                                            @string.Format("{0:c}", d.Monto())
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            @if (Model.ComprobanteDetalle.Count > 0)
+                            {
+                                <li class="list-group-item text-right" style="font-size:18px;">
+                                    @string.Format("{0:c}", Model.Total())
+                                </li>
+                            }
+                        </ul>
+
+                        @if (Model.ComprobanteDetalle.Count > 0)
+                        {
+                            <button class="btn btn-primary btn-block btn-lg" type="submit" value="generar" name="action">Generar comprobante</button>
+                        }
+                        @*<iframe id="facIframe" >
+                            </iframe>*@
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2({
+                    placeholder: "[--Seleccione un cliente--]",
+                    allowClear: true
+                });
+
+            LimpiarAgregarProducto();
+
+            $(".btn-retirar").click(function () {
+                if (confirm('¿Está seguro de retirar el item seleccionado?')) {
+                    $(this).closest('.list-group-item').find('.retirar').val("True");
+                    return true;
+                }
+
+                return false;
+            })
+
+            /* Autocomplete de producto, jquery UI */
+            $("#Producto").autocomplete({
+                dataType: 'JSON',
+                source: function (request, response) {
+                    jQuery.ajax({
+                        url: '/Orders/BuscarProducto',
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            nombre: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    id: item.productId,
+                                    value: item.productName,
+                                    precio: item.unitPrice
+                                }
+                            }))
+                        }
+                    })
+                },
+                select: function (e, ui) {
+                    $("#CabeceraProductoId").val(ui.item.id);
+                    $("#CabeceraProductoPrecio").val(ui.item.precio);
+                    $("#CabeceraProductoCantidad").focus();
+                }
+            })
+
+            /* Autocomplete de Customers, jquery UI */
+            $("#Cliente").autocomplete({
+                dataType: 'JSON',
+                source: function (request, response) {
+                    jQuery.ajax({
+                        url: '/Orders/BuscarCustomer',
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            nombre: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    id: item.customerId,
+                                    value: item.customerNameDoc,
+                                    precio: item.address
+                                }
+                            }))
+                        }
+                    })
+                },
+                select: function (e, ui) {
+                    $("#Clienteid").val(ui.item.id);
+                    //$("#CabeceraProductoPrecio").val(ui.item.precio);
+                    //$("#CabeceraProductoCantidad").focus();
+                }
+            })
+
+            //$("#facIframe").attr("width", "500");
+            // $("#facIframe").append("<body>" + $(".Productos_orden").html() + "</body>");
+        })
+
+        function LimpiarAgregarProducto() {
+            $("#CabeceraProductoId").val("");
+            $("#Producto").val("");
+            $("#CabeceraProductoPrecio").val("");
+            $("#CabeceraProductoCantidad").val(1);
+        }
+    </script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+

@@ -1,0 +1,215 @@
+﻿@model Store.Web.Data.Entities.Employees
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<style>
+    #preview img {
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
+</style>
+
+<div class="form-horizontal">
+    <form asp-action="Create" id="AgregarId" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="col-md-10 " id="preview">
+                <img class="img-circle" src="~/img/no_foto.png" height="50" width="50" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Photo" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input type="file" id="Image" name="Image" class="form-control" accept="image/png, .jpeg, .jpg, image/gif" />
+            </div>
+        </div>
+        @*<hr />*@
+
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="FirstName" class="form-control" id="FirstName" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" id="Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TitleOfCourtesy" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="TitleOfCourtesy" class="form-control" />
+                <span asp-validation-for="TitleOfCourtesy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BirthDate" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HireDate" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="HireDate" class="form-control" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label asp-for="Address" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Address" class="form-control" rows="2" cols="20"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="City" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Region" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Region" class="form-control" />
+                <span asp-validation-for="Region" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostalCode" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Country" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HomePhone" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="HomePhone" class="form-control" />
+                <span asp-validation-for="HomePhone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Extension" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Extension" class="form-control" />
+                <span asp-validation-for="Extension" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Photo" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label asp-for="Notes" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Notes" class="form-control" rows="2" cols="20"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ReportsTo" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="ReportsTo" class="form-control" asp-items="ViewBag.ReportsTo"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhotoPath" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="PhotoPath" class="form-control" />
+                <span asp-validation-for="PhotoPath" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="botonGuardar" data-dismiss="modal" type="submit" value="Create" class="btn btn-default" style="display:none" hidden />
+                    <input id="guardarModal" type="submit" value="Guardar" class="btn btn-sm btn-success btn-flat pull-right " @*onclick="return GuardarModal()"*@ />
+                    <button data-dismiss="modal" class="btn btn-sm btn-default btn-flat pull-right">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>*@
+
+<script src="~/js/Img_preview.js"></script>
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    //$("#target").submit();
+    $('#AgregarId').validate({
+        rules: {
+            FirstName: { required: true },
+            Title: { required: true }
+        },
+        messages: {
+            FirstName: "Debe ingresar un nombre de FirstName.",
+            Title: "Ingrese una Title."
+        },
+        submitHandler: function (form) {
+            //event.preventDefault();
+            //console.log("success");
+            //debugger;
+            var oTable = $('.table').DataTable();
+            //debugger;
+            //var model = new FormData($('form').get(0));
+            var url = $('#AgregarId')[0].action;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#AgregarId').serialize(),
+                success: function (data) {
+                    oTable.ajax.reload();
+                    if (data) {
+                        //$.notification.show('success', 'Datos insertados correctamente.');
+                        cosyAlert('<strong>Agregad!!</strong><br />Datos insertados correctamentet...', 'success', { showTime: 1000, hideTime: 1000, vPos: 'bottom', hPos: 'right' });
+                    }
+                    else {
+                        //toastr.danger(' Hubo un al  insertar registro.', 'Error Registro');
+                        cosyAlert('<strong>Error!!</strong><br/>Hubo un error al  insertar registro...', 'error', { showTime: 1000, hideTime: 1000, vPos: 'bottom', hPos: 'right' });
+                    }
+                }
+            });
+            $("#botonGuardar").click();
+        }
+    });
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

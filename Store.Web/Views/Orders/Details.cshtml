@@ -1,0 +1,263 @@
+﻿@model Store.Web.Data.Entities.Orders
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Comprobante #" + Model.OrderId;
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header bg-blue">
+                <h3 class="box-title"><b>FACTURA</b></h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="row ">
+                    <!-- /.col -->
+                    <div class="col-md-1">
+                        <img src="~/img/no_foto.png" class="img-circle" alt="Logo De Factura" height="70" width="90" />
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-11 ">
+                        Tienda Warlin Sano & Asocciado .Inc<br />
+                        C/Principal #145, Bani, Prov. Peravia R.D.<br />
+                        Tel.: (829) 329-0694
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+@*<hr />*@
+<div class="row">
+    <!-- /.col -->
+    <div class="col-md-4">
+    </div>
+    <!-- /.col -->
+    <!-- /.col -->
+    <div class="col-md-4">
+    </div>
+    <!-- /.col -->
+    <!-- /.col -->
+    <div class="col-md-4">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h5 class="box-title">Datos Del Vendedor</h5>
+
+                @*<div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>*@
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="">
+                <b>Nombre Del Vendedor:</b> @Model.Customer.ContactName<br />
+                <b>No. Vendedor:</b> VE4333320102<br />
+                <b>No. De Estacion:</b> CJ-0201
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@*<h2 class="page-header">Comprobante #@Model.OrderId.ToString().PadLeft(4)</h2>*@
+<div id="print" class="row">
+    <div class="col-xs-12">
+
+        <ul id="facturador-detalle" class="list-group">
+            <li class="list-group-item bg-blue">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <b>Datos Del Cliente:</b>
+                    </div>
+                    @*<div class="col-xs-2 text-center">
+                            <b>Cantidad</b>
+                        </div>*@
+                    <div class="col-xs-6 ">
+                        <b>Datos De Factura:</b>
+                    </div>
+                    @*<div class="col-xs-2 text-right">
+                            <b>Monto</b>
+                        </div>*@
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <b>Nombre Del Cliente:</b> @Model.Customer.ContactName<br />
+                        <b>Telefono:</b> (829) 329-0694<br />
+                        <b>Dirreccion:</b> C/Principal #145, Bani, Prov. Peravia R.D.
+                    </div>
+                    @*<div class="col-xs-2 text-center">
+                            <b>Cantidad</b>
+                        </div>*@
+                    <div class="col-xs-6 ">
+                        <b>No. Factura:</b> @Model.OrderId.ToString().PadLeft(4)<br />
+                        <b>Tipo De Factua:</b> Credito<br />
+                        <b>Fecha De Factua:</b> @DateTime.Now.ToString("dd-MM-yyyy") <br />
+                    </div>
+                    @*<div class="col-xs-2 text-right">
+                            <b>Monto</b>
+                        </div>*@
+                </div>
+            </li>
+
+            <li class="list-group-item bg-blue">
+                <div class="row ">
+                    <div class="col-xs-6">
+                        <b>Producto</b>
+                    </div>
+                    <div class="col-xs-2 text-center">
+                        <b>Cantidad</b>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <b>Precio Unitario</b>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <b>Monto</b>
+                    </div>
+                </div>
+            </li>
+            @foreach (var d in Model.OrderDetails)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @d.Product.ProductName
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            @d.Quantity
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            @string.Format("{0:c}", d.UnitPrice)
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            @string.Format("{0:c}", (d.Quantity * d.UnitPrice))
+                        </div>
+                    </div>
+                </li>
+            }
+            @if (Model.OrderDetails.Count > 0)
+            {
+                <li class="list-group-item text-right" style="font-size:18px;">
+                    @*@string.Format("{0:c}", Model.Total)*@
+                    <b>Total: 200$</b>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+<a asp-action='Index' class='btn btn-info'>
+    <span aria-hidden='true' class='glyphicon glyphicon-share-alt'></span> Volver Atras
+</a>
+
+<a class='btn btn-danger' onclick="Imprimir()">
+    <span aria-hidden='true' class='glyphicon glyphicon-print'></span> Imprimir
+</a>
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+    <script>
+        function pruebaDivAPdf() {
+            var pdf = new jsPDF('p', 'pt', 'letter');
+            source = $('#print')[0];
+
+            specialElementHandlers = {
+                '#bypassme': function (element, renderer) {
+                    return true
+                }
+            };
+
+            margins = {
+                top: 80,
+                bottom: 60,
+                left: 40,
+                width: 522
+            };
+
+            pdf.fromHTML(
+                source,
+                margins.left, // x coord
+                margins.top, { // y coord
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
+                function (dispose) {
+                    //pdf.save('Prueba.pdf');
+
+                    var string = pdf.output('datauristring');
+                    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+                    var x = window.open();
+                    x.document.open();
+                    x.document.write(iframe);
+                    x.document.close();
+
+                }, margins
+            );
+        }
+
+        function Imprimir() {
+            $("body").css("overflow", "hidden");
+            $(".main-footer").hide();
+            $(".btn").hide();
+            window.print();
+            $(".btn").show();
+            $(".main-footer").show();
+            $("body").css("overflow", "auto");
+        }
+    </script>
+}
+
+@*
+        <a href="javascript:pruebaDivAPdf()" class="btn btn-primary">
+        Pasar a PDF <span aria-hidden="true" class="fa fa-file-pdf-o"></span>
+    </a>
+
+        <script>
+            $(document).ready(function () {
+                var doc = new jsPDF();
+                var string = doc.output('datauristring');
+
+                var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+                var x = window.open();
+                x.document.open();
+                x.document.write(iframe);
+                x.document.close();
+            })
+        </script>*@
+
+@*<style style="text/css">
+        html, body, div, iframe {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+    </style>*@
+@*<iframe type="application/pdf" src="https://localhost:44396/Orders" title="W3Schools Free Online Web Tutorials" scrolling="auto">
+        Texto alternativo para navegadores que no aceptan iframes
+    </iframe>*@
+

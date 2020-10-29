@@ -24,6 +24,7 @@ namespace Store.Web.Data
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<Territories> Territories { get; set; }
@@ -632,6 +633,11 @@ namespace Store.Web.Data
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.SupplierId)
                     .HasConstraintName("FK_Products_Suppliers");
+            });
+
+            modelBuilder.Entity<ProductImage>(entity =>
+            {
+                entity.HasIndex(e => e.Id).IsUnique();
             });
 
             modelBuilder.Entity<ProductsAboveAveragePrice>(entity =>
